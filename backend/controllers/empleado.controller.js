@@ -1,12 +1,10 @@
 const Empleado = require('../models/empleado.models');
 const empleadoCtrl = {};
-
 // DEFINO LOS METODOS
 empleadoCtrl.getEmpleados = async (req, res) => {
     const empleados = await Empleado.find();
     res.json(empleados);
 }; 
-
 // crear empleados
 empleadoCtrl.createEmpleado = async (req, res) => {
     const empleado = new Empleado(req.body);
@@ -15,13 +13,12 @@ empleadoCtrl.createEmpleado = async (req, res) => {
         'status': 'Empleado guardado satisfactoriamente',
     });
 };
-// consultar un solo empleado
-
+// conseguir un unico empleado
 empleadoCtrl.getUnicoEmpleado = async (req, res) => {
     const empleadoUnico = await Empleado.findById(req.params.id);
     res.json(empleadoUnico);
 }
-// actualizar un empleado
+// actualizar empleado
 empleadoCtrl.editarEmpleado = async (req, res) => {
     const { id } = req.params;
     const empleadoEdit = {
@@ -34,11 +31,13 @@ empleadoCtrl.editarEmpleado = async (req, res) => {
     res.json({
         status: 'Empleado actualizado satisfactoriamente' });
 }
+// eliminar empleado
 empleadoCtrl.eliminarEmpleado = async (req, res) => {
     const { id } = req.params;
     await Empleado.findByIdAndDelete(id);
     res.json({
         status: 'Empleado eliminado satisfactoriamente'
     });
-};
+}
+// exportar el modulo
 module.exports = empleadoCtrl;
